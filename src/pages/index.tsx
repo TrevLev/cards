@@ -1,10 +1,14 @@
+import React from "react";
+
 export async function getServerSideProps() {
-  const res = await fetch(`http://127.0.0.1:8090/api/collections/people/records`)
-  const data = await res.json()
-  return { props: { people: data?.items } }
+  const res = await fetch(
+    `http://127.0.0.1:8090/api/collections/people/records`
+  );
+  const data = await res.json();
+  return { props: { people: data?.items } };
 }
 
-const Index = ({people}: {people: any}) => {
+const Index = function what({ people }: { people: any }) {
   return (
     <div>
       <h1>Data Fetched From PocketBase</h1>
@@ -15,6 +19,6 @@ const Index = ({people}: {people: any}) => {
       ))}
     </div>
   );
-}
+};
 
-export default Index
+export default Index;
