@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { ListPeopleQuery, Person } from "../API";
 import { listPeople } from "../graphql/queries";
 
-const Index = function what({ people = [] }: { people: Person[] }) {
+const Index = ({ people = [] }: { people: Person[] }) => {
   return (
     <div>
       <h1>Data Fetched From AWS</h1>
