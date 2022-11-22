@@ -87,6 +87,39 @@ export type DeletePersonInput = {
   id: string,
 };
 
+export type CreateMessageInput = {
+  id?: string | null,
+  owner: string,
+  body: string,
+};
+
+export type ModelMessageConditionInput = {
+  owner?: ModelStringInput | null,
+  body?: ModelStringInput | null,
+  and?: Array< ModelMessageConditionInput | null > | null,
+  or?: Array< ModelMessageConditionInput | null > | null,
+  not?: ModelMessageConditionInput | null,
+};
+
+export type Message = {
+  __typename: "Message",
+  id: string,
+  owner: string,
+  body: string,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateMessageInput = {
+  id: string,
+  owner?: string | null,
+  body?: string | null,
+};
+
+export type DeleteMessageInput = {
+  id: string,
+};
+
 export type ModelPersonFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
@@ -115,6 +148,21 @@ export type ModelIDInput = {
 export type ModelPersonConnection = {
   __typename: "ModelPersonConnection",
   items:  Array<Person | null >,
+  nextToken?: string | null,
+};
+
+export type ModelMessageFilterInput = {
+  id?: ModelIDInput | null,
+  owner?: ModelStringInput | null,
+  body?: ModelStringInput | null,
+  and?: Array< ModelMessageFilterInput | null > | null,
+  or?: Array< ModelMessageFilterInput | null > | null,
+  not?: ModelMessageFilterInput | null,
+};
+
+export type ModelMessageConnection = {
+  __typename: "ModelMessageConnection",
+  items:  Array<Message | null >,
   nextToken?: string | null,
 };
 
@@ -168,6 +216,14 @@ export type ModelSubscriptionIntInput = {
   notIn?: Array< number | null > | null,
 };
 
+export type ModelSubscriptionMessageFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  owner?: ModelSubscriptionStringInput | null,
+  body?: ModelSubscriptionStringInput | null,
+  and?: Array< ModelSubscriptionMessageFilterInput | null > | null,
+  or?: Array< ModelSubscriptionMessageFilterInput | null > | null,
+};
+
 export type CreatePersonMutationVariables = {
   input: CreatePersonInput,
   condition?: ModelPersonConditionInput | null,
@@ -216,6 +272,54 @@ export type DeletePersonMutation = {
   } | null,
 };
 
+export type CreateMessageMutationVariables = {
+  input: CreateMessageInput,
+  condition?: ModelMessageConditionInput | null,
+};
+
+export type CreateMessageMutation = {
+  createMessage?:  {
+    __typename: "Message",
+    id: string,
+    owner: string,
+    body: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateMessageMutationVariables = {
+  input: UpdateMessageInput,
+  condition?: ModelMessageConditionInput | null,
+};
+
+export type UpdateMessageMutation = {
+  updateMessage?:  {
+    __typename: "Message",
+    id: string,
+    owner: string,
+    body: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteMessageMutationVariables = {
+  input: DeleteMessageInput,
+  condition?: ModelMessageConditionInput | null,
+};
+
+export type DeleteMessageMutation = {
+  deleteMessage?:  {
+    __typename: "Message",
+    id: string,
+    owner: string,
+    body: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetPersonQueryVariables = {
   id: string,
 };
@@ -245,6 +349,42 @@ export type ListPeopleQuery = {
       id: string,
       name: string,
       age?: number | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetMessageQueryVariables = {
+  id: string,
+};
+
+export type GetMessageQuery = {
+  getMessage?:  {
+    __typename: "Message",
+    id: string,
+    owner: string,
+    body: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListMessagesQueryVariables = {
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListMessagesQuery = {
+  listMessages?:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      owner: string,
+      body: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -292,6 +432,51 @@ export type OnDeletePersonSubscription = {
     id: string,
     name: string,
     age?: number | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
+};
+
+export type OnCreateMessageSubscription = {
+  onCreateMessage?:  {
+    __typename: "Message",
+    id: string,
+    owner: string,
+    body: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
+};
+
+export type OnUpdateMessageSubscription = {
+  onUpdateMessage?:  {
+    __typename: "Message",
+    id: string,
+    owner: string,
+    body: string,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteMessageSubscriptionVariables = {
+  filter?: ModelSubscriptionMessageFilterInput | null,
+};
+
+export type OnDeleteMessageSubscription = {
+  onDeleteMessage?:  {
+    __typename: "Message",
+    id: string,
+    owner: string,
+    body: string,
     createdAt: string,
     updatedAt: string,
   } | null,

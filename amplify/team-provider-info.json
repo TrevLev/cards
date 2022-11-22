@@ -14,6 +14,9 @@
     "categories": {
       "api": {
         "cards": {}
+      },
+      "auth": {
+        "cards75b661b1": {}
       }
     }
   }
