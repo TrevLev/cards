@@ -90,16 +90,24 @@ export default withAuthenticator(Chat);
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const SSR = withSSRContext({ req });
 
-  const response = (await SSR.API.graphql({
-    query: listMessages,
-    authMode: "AMAZON_COGNITO_USER_POOLS",
-  })) as {
-    data: ListMessagesQuery;
-  };
+  try {
+    const response = (await SSR.API.graphql({
+      query: listMessages,
+      authMode: "AMAZON_COGNITO_USER_POOLS",
+    })) as {
+      data: ListMessagesQuery;
+    };
 
-  return {
-    props: {
-      messages: response.data.listMessages?.items,
-    },
-  };
+    return {
+      props: {
+        messages: response.data.listMessages?.items,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        messages: [],
+      },
+    };
+  }
 };
