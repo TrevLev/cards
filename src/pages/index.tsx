@@ -1,35 +1,9 @@
-import { withSSRContext } from "aws-amplify";
-import { GetServerSideProps } from "next";
-import { ListPeopleQuery, Person } from "../API";
-import { listPeople } from "../graphql/queries";
-
-const Index = ({ people = [] }: { people: Person[] }) => (
-  <div>
-    <h1>Data Fetched From AWS</h1>
-    <ul>
-      {people.map((person) => {
-        return (
-          <li key={person.id}>
-            My name is {person.name}, and I&apos;m {person.age} years old.
-          </li>
-        );
-      })}
-    </ul>
+const Index = () => (
+  <div className="grid h-screen place-items-center p-4">
+    <p className="text-blue-500 font-bold text-2xl sm:text-4xl md:text-6xl lg:text-8xl text-center">
+      I&apos;m Styled With Tailwind!
+    </p>
   </div>
 );
 
 export default Index;
-
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const SSR = withSSRContext({ req });
-
-  const response = (await SSR.API.graphql({ query: listPeople })) as {
-    data: ListPeopleQuery;
-  };
-
-  return {
-    props: {
-      people: response.data.listPeople?.items,
-    },
-  };
-};
